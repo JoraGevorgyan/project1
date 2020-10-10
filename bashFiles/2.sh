@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 if [ -e $1 ]
 then 
     if [ -d $1 ]
