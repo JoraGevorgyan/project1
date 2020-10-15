@@ -15,8 +15,9 @@ readDir () {
             if [ -d $tmp ]
             then
                 readDir $tmp
+                echo
             else
-                echo $tmp
+                echo -n "$tmp "
             fi
         done
         cd ..
@@ -24,12 +25,18 @@ readDir () {
         
 
 
+if [ -z $1 ]
+then
+    echo -e "There's no given argument.\nTry again and run programm with an argument"
+    exit
+fi
 
 if [ -e $1 ]
 then
     if [ -d $1 ]
     then
         readDir $1
+        echo
     else
         echo $1
     fi
