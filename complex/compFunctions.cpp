@@ -17,24 +17,24 @@ complex::complex(double a, double b)
 }
 
 complex complex::operator + (complex tmp) {
-        complex res;
-        res.a = a + tmp.a;
-        res.b = b + tmp.b;
-        return res;
+    complex res;
+    res.a = a + tmp.a;
+    res.b = b + tmp.b;
+    return res;
 }
 
 complex complex::operator - (complex tmp) {
-        complex res;
-        res.a = a - tmp.a;
-        res.b = b - tmp.b;
-        return res;
+    complex res;
+    res.a = a - tmp.a;
+    res.b = b - tmp.b;
+    return res;
 }
 
 complex complex::operator * (complex tmp) {
-        complex res;
-        res.a = a * tmp.a - b * tmp.b;
-        res.b = a * tmp.b + tmp.a * b;
-        return res;
+    complex res;
+    res.a = a * tmp.a - b * tmp.b;
+    res.b = a * tmp.b + tmp.a * b;
+    return res;
 }
 
 bool complex::operator < (complex tmp) {
@@ -63,12 +63,12 @@ std::istream& operator >> (std::istream& in, complex &arg) {
         ++i;
     }
     for( ; i < s.size() && s[i] >= '0' && s[i] <= '9'; ++i) {  //read symbols from string &
-                                                                   //convert to decimal, until first non number symbol
+        //convert to decimal, until first non number symbol
         arg.a += arg.a * 10 + s[i] - '0';
     }
     arg.a *= sign;
     sign = 1;
-    
+
     if(s[i] == '.') {// if it's real number,it also convert
         double tmp = 0;
         int cntr = 0;
@@ -114,24 +114,24 @@ std::ostream& operator << (std::ostream& out, const complex &arg) {
     if(arg.a) {                  // if a is 0, it becomes useless to print it
         printf("%.2lf ", arg.a);
     }
-	if(arg.b) {                  // if b is 0, it becomes useless to print it
-		if(arg.b > 0) {          // if b is positive, I need to print '+' symbol
-			std::cout << "+";
-		}
-		printf("%.2lfi", arg.b);
-	}
+    if(arg.b) {                  // if b is 0, it becomes useless to print it
+        if(arg.b > 0) {          // if b is positive, I need to print '+' symbol
+            std::cout << "+";
+        }
+        printf("%.2lfi", arg.b);
+    }
     return out;
 }
 
 complex complex::mulByConst(double value) {
-	complex res;
-	res.a = a * value;
-	res.b = b * value;
-	return res;
+    complex res;
+    res.a = a * value;
+    res.b = b * value;
+    return res;
 }
 
 double complex::abs() {
-	return sqrt(a*a + b*b);// the absolutlye value of complex numbers is always a real number
+    return sqrt(a*a + b*b);// the absolutlye value of complex numbers is always a real number
 }
 
 
@@ -158,8 +158,8 @@ complexArray::~complexArray()
 std::ostream& operator << (std::ostream& out, const complexArray &arr) {
     for(int i = 0; i < arr.length; ++i) {
         out << arr.array[i] << "   ";
-	}
-	out << '\n';
+    }
+    out << '\n';
     return out;
 }
 
@@ -167,34 +167,34 @@ int partSort(complex*, int, int);  //will be used in quickSort
 void quickSort(complex*, int, int);// will be used in complexArray::sort
 
 void complexArray::sort() {
-	for(int i = 0; i < length; ++i) { // this loop will make all members of array in absolutely value
-		array[i].a = array[i].abs();
-		array[i].b = 0;
-	}
-	quickSort(array, -1, length - 1); // calling quickSort for the array
+    for(int i = 0; i < length; ++i) { // this loop will make all members of array in absolutely value
+        array[i].a = array[i].abs();
+        array[i].b = 0;
+    }
+    quickSort(array, -1, length - 1); // calling quickSort for the array
 }
 
 int partSort(complex* arr, int left, int right) {
-        complex tmp = arr[right]; // pivot for sorting
-        int index = left - 1; // current index for start
-        for(int i = left; i < right; ++i) {
-                if(arr[i] < tmp) {/// if the pivot is greater than current element, swap these 
-                        ++index;
-                        std::swap(arr[index], arr[i]);
-                }
+    complex tmp = arr[right]; // pivot for sorting
+    int index = left - 1; // current index for start
+    for(int i = left; i < right; ++i) {
+        if(arr[i] < tmp) {/// if the pivot is greater than current element, swap these 
+            ++index;
+            std::swap(arr[index], arr[i]);
         }
-        std::swap(arr[index + 1], arr[right]); //all elements in the left of current are less,
-                                                   // than pivot, and others are greater than pivot
-                                                   // so, I need swap these elements
-        return index + 1;
+    }
+    std::swap(arr[index + 1], arr[right]); //all elements in the left of current are less,
+    // than pivot, and others are greater than pivot
+    // so, I need swap these elements
+    return index + 1;
 }
 
 void quickSort(complex* arr, int left, int right) {
-        if(left < right) { // if left >= right it meens, that, all array is sorted
-                int index = partSort(arr, left, right); // partsort will return the index of pivot
-                                                        // with that index i will multiply array by
-                                                        // two parts, and sort these apart
-                quickSort(arr, left, index - 1);
-                quickSort(arr, index + 1, right);
-        }
+    if(left < right) { // if left >= right it meens, that, all array is sorted
+        int index = partSort(arr, left, right); // partsort will return the index of pivot
+        // with that index i will multiply array by
+        // two parts, and sort these apart
+        quickSort(arr, left, index - 1);
+        quickSort(arr, index + 1, right);
+    }
 }
