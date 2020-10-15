@@ -1,28 +1,28 @@
 #!/bin/bash
 
 readDir () {
-        echo $1 "->"
-        cd $1
-        Files=()
-        ls > .files.txt
-        while read file
-        do
-            Files+="$file "
-        done<".files.txt"
-        rm .files.txt
-        for tmp in ${Files[@]}
-        do
-            if [ -d $tmp ]
-            then
-                readDir $tmp
-                echo
-            else
-                echo -n "$tmp "
-            fi
-        done
-        cd ..
+    echo $1 "->"
+    cd $1
+    Files=()
+    ls > .files.txt
+    while read file
+    do
+        Files+="$file "
+    done<".files.txt"
+    rm .files.txt
+    for tmp in ${Files[@]}
+    do
+        if [ -d $tmp ]
+        then
+            readDir $tmp
+            echo
+        else
+            echo -n "$tmp "
+        fi
+    done
+    cd ..
 }
-        
+
 
 
 if [ -z $1 ]
